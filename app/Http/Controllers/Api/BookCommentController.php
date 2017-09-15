@@ -95,6 +95,31 @@ class BookCommentController extends BaseController
     }
 
 
+    /**
+     * @api               {post} postComment 发表评论
+     * @apiName           postComment
+     * @apiGroup          Comment
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       发表评论
+     * @apiParam {int} user_id 用户id，必传参数
+     * @apiParam {int} book_id 作品id，必传参数
+     * @apiParam {string} comment 评论内容，必传参数
+     * @apiParam {string} score 评分，必传参数
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} data 返回执行成功的id
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": 1
+     *}
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function postComment(Request $request){
         if ($request->has('book_id') && $request->has('user_id')){
@@ -125,6 +150,29 @@ class BookCommentController extends BaseController
         return $this->success($this->BookComment->Add($data));
     }
 
+    /**
+     * @api               {post} delComment 删除评论
+     * @apiName           delComment
+     * @apiGroup          Comment
+     * @apiVersion        1.0.0
+     * @apiUse            Error404
+     * @apidescribe       发表评论
+     * @apiParam {int} user_id 用户id，必传参数
+     * @apiParam {int} book_id 作品id，必传参数
+     * @apiSuccess {number} status 结果状态值，0：请求失败；1：请求成功
+     * @apiSuccess {string} info 返回状态说明，status为0时，info返回错误原因，否则返回“OK”
+     * @apiSuccess {array} data 返回执行成功的行数
+     *
+     * @apiSuccessExample Success-Response:
+     * HTTP/1.1 200 OK
+     *{
+     *"status": 1,
+     *"info": "ok",
+     *"data": 1
+     *}
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delComment(Request $request){
         if ($request->has('book_id') && $request->has('user_id')){
             $where = ['book_id'=>$request->get('book_id'),'user_id'=>$request->get('user_id')];
